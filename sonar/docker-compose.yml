@@ -1,0 +1,8 @@
+version: '3'
+services:
+    sonarapp:
+        build:
+          context: ./sonar
+        image: sonarimg
+        ports:
+          - "8080:8080"

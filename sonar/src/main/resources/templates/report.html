@@ -1,0 +1,67 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="ISO-8859-1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="UTF-8"/>
+
+  <title>Report</title>
+
+  <link th:href="@{bootstrap/css/bootstrap.css}" type="text/css" rel="stylesheet" />
+  <link th:href="@{styles/report.css}" type="text/css" rel="stylesheet" />
+
+  <script src="jquery/jquery-1.12.4.js"></script>
+  <script src="bootstrap/js/bootstrap.js"></script>
+
+</head>
+<body>
+<div class="container">
+  <div class="banner col-xs-12">
+    Issues Breakdown by OWASP Category and Severity
+  </div>
+  <div class="banner col-xs-12">
+    <span th:text="${projectName}"></span>
+  </div>
+
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>Category</th>
+      <th>Rating</th>
+      <th>Blocker</th>
+      <th>Critical</th>
+      <th>Major</th>
+      <th>Minor</th>
+      <th>Info</th>
+      <th>Hotspots</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="key: ${report.keySet()}">
+      <td th:text="${key}"> </td>
+      <td th:text="${report.get(key)}? ${report.get(key).rating} : 'A'"></td>
+      <td th:text="${report.get(key)}? (${report.get(key).blocker gt 0}? ${report.get(key).blocker}) : ' '"></td>
+      <td th:text="${report.get(key)}? (${report.get(key).critical gt 0}? ${report.get(key).critical}) : ' '"></td>
+      <td th:text="${report.get(key)}? (${report.get(key).major gt 0}? ${report.get(key).major}) : ' '"></td>
+      <td th:text="${report.get(key)}? (${report.get(key).minor gt 0}? ${report.get(key).minor}) : ' '"></td>
+      <td th:text="${report.get(key)}? (${report.get(key).info gt 0}? ${report.get(key).info}): ' '"></td>
+      <td th:text="${report.get(key)}? (${report.get(key).hotspots gt 0}? ${report.get(key).hotspots}) : ' '"></td>
+    </tr>
+
+    <tr >
+      <td ></td>
+      <td ></td>
+      <td th:text="${counts.get('BLOCKER')}? ${counts.get('BLOCKER')} : '0'"></td>
+      <td th:text="${counts.get('CRITICAL')}? ${counts.get('CRITICAL')} : '0'"></td>
+      <td th:text="${counts.get('MAJOR')}? ${counts.get('MAJOR')} : '0'"></td>
+      <td th:text="${counts.get('MINOR')}? ${counts.get('MINOR')} : '0'"></td>
+      <td th:text="${counts.get('INFO')}? ${counts.get('INFO')} : '0'"></td>
+      <td th:text="${counts.get('HOTSPOTS')}? ${counts.get('HOTSPOTS')} : '0'"></td>
+    </tr>
+    </tbody>
+
+  </table>
+</div>
+</body>
+</html>
